@@ -1,0 +1,21 @@
+name: Deploy Todo Website
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: write # Needed to allow the action to push to the gh-pages branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: . # This points to the root of your repo on GitHub
+          branch: gh-pages
