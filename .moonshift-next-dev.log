@@ -1,0 +1,47 @@
+  ▲ Next.js 14.2.35
+  - Local:        http://127.0.0.1:4101
+  - Network:      http://127.0.0.1:4101
+
+ ✓ Starting...
+ ✓ Ready in 3.7s
+ ✓ Compiled /middleware in 266ms (115 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 2.6s (602 modules)
+   Reload env: .env.local
+ ✓ Compiled in 3s (675 modules)
+ ✓ Compiled in 986ms (252 modules)
+ ✓ Compiled in 340ms (252 modules)
+ ✓ Compiled in 168ms (252 modules)
+ ✓ Compiled in 195ms (252 modules)
+ ✓ Compiled in 220ms (252 modules)
+ ✓ Compiled in 168ms (252 modules)
+ ✓ Compiled in 187ms (252 modules)
+ ✓ Compiled in 268ms (252 modules)
+ ✓ Compiled / in 262ms (559 modules)
+ GET /app 404 in 442ms
+ GET / 200 in 412ms
+ ✓ Compiled in 656ms (367 modules)
+ ✓ Compiled / in 438ms (565 modules)
+ GET / 200 in 479ms
+ GET /app 307 in 606ms
+ ✓ Compiled /sign-in in 493ms (699 modules)
+ GET /sign-in 200 in 624ms
+ GET /app 307 in 111ms
+ GET /sign-in 200 in 11ms
+ GET / 200 in 32ms
+ ⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+  ▲ Next.js 14.2.35
+  - Local:        http://127.0.0.1:4101
+  - Network:      http://127.0.0.1:4101
+  - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 1775ms
+ ✓ Compiled /middleware in 273ms (115 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 2.7s (593 modules)
+ GET / 200 in 2929ms
+ ✓ Compiled in 537ms (573 modules)
+ GET / 200 in 111ms
+ ✓ Compiled in 1637ms (575 modules)
+ GET / 200 in 119ms

@@ -1,0 +1,447 @@
+{
+  "name": "Rankly",
+  "slug": "rankly",
+  "tagline": "Find and fix the SEO gaps that keep your deployed app from ranking.",
+  "positioning": "Rankly is a lightweight SEO audit workspace for deployed marketing sites, portfolios, and Next.js apps. It scans public routes for titles, meta descriptions, Open Graph and Twitter tags, canonical URLs, robots directives, sitemap coverage, and JSON-LD, then turns the results into page-level findings and fix history so a solo builder or small team can tighten search visibility without redesigning the product.",
+  "archetype": "web-app",
+  "kind": "fullstack",
+  "features": {
+    "auth": true,
+    "payments": false
+  },
+  "entities": [
+    {
+      "name": "Site",
+      "description": "A deployed app or marketing site being monitored for SEO health.",
+      "ownedByUser": true,
+      "fields": [
+        {
+          "name": "name",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "baseUrl",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "targetLocale",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "defaultOgImageUrl",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "isActive",
+          "type": "boolean",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AuditRun",
+      "description": "A single crawl and SEO scan of one Site.",
+      "ownedByUser": true,
+      "fields": [
+        {
+          "name": "siteId",
+          "type": "integer",
+          "required": true,
+          "unique": false,
+          "references": "Site",
+          "description": ""
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "score",
+          "type": "integer",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "startedAt",
+          "type": "timestamp",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "finishedAt",
+          "type": "timestamp",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "summary",
+          "type": "json",
+          "required": true,
+          "unique": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "PageCheck",
+      "description": "SEO signal results for one crawled public page within an AuditRun.",
+      "ownedByUser": true,
+      "fields": [
+        {
+          "name": "auditRunId",
+          "type": "integer",
+          "required": true,
+          "unique": false,
+          "references": "AuditRun",
+          "description": ""
+        },
+        {
+          "name": "url",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "path",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "metaDescription",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "canonicalUrl",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "hasOpenGraph",
+          "type": "boolean",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "hasTwitterCard",
+          "type": "boolean",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "hasJsonLd",
+          "type": "boolean",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "robotsIndexable",
+          "type": "boolean",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "issues",
+          "type": "json",
+          "required": true,
+          "unique": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Finding",
+      "description": "A discrete issue or recommendation produced by an audit.",
+      "ownedByUser": true,
+      "fields": [
+        {
+          "name": "auditRunId",
+          "type": "integer",
+          "required": true,
+          "unique": false,
+          "references": "AuditRun",
+          "description": ""
+        },
+        {
+          "name": "pageCheckId",
+          "type": "integer",
+          "required": true,
+          "unique": false,
+          "references": "PageCheck",
+          "description": ""
+        },
+        {
+          "name": "severity",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "issueCode",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "message",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "details",
+          "type": "json",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "resolved",
+          "type": "boolean",
+          "required": true,
+          "unique": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "BrandAsset",
+      "description": "Uploaded brand images used for previews, social cards, or reference during SEO fixes.",
+      "ownedByUser": true,
+      "fields": [
+        {
+          "name": "siteId",
+          "type": "integer",
+          "required": true,
+          "unique": false,
+          "references": "Site",
+          "description": ""
+        },
+        {
+          "name": "kind",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "fileUrl",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "altText",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "mimeType",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "isPrimary",
+          "type": "boolean",
+          "required": true,
+          "unique": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "kind": "page",
+      "auth": false,
+      "purpose": "Public landing page with product value, examples, and CTA"
+    },
+    {
+      "path": "/login",
+      "kind": "page",
+      "auth": false,
+      "purpose": "Email/password sign in"
+    },
+    {
+      "path": "/signup",
+      "kind": "page",
+      "auth": false,
+      "purpose": "Email/password account creation"
+    },
+    {
+      "path": "/app",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Authenticated dashboard with recent sites and audit status"
+    },
+    {
+      "path": "/app/sites",
+      "kind": "page",
+      "auth": true,
+      "purpose": "All tracked sites"
+    },
+    {
+      "path": "/app/sites/new",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Add a deployed site to audit"
+    },
+    {
+      "path": "/app/sites/[siteId]",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Site overview, audit history, and assets"
+    },
+    {
+      "path": "/app/sites/[siteId]/audits/[auditId]",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Detailed page-level audit results and findings"
+    },
+    {
+      "path": "/app/sites/[siteId]/assets",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Upload and manage brand assets"
+    },
+    {
+      "path": "/app/settings",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Account settings and crawl preferences"
+    },
+    {
+      "path": "/api/sites",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Create, list, and update tracked sites"
+    },
+    {
+      "path": "/api/sites/[siteId]/audits",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Create and list audit runs for a site"
+    },
+    {
+      "path": "/api/audits/[auditId]/recheck",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Run a new SEO scan for an existing audit target"
+    },
+    {
+      "path": "/api/uploads",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Upload brand images and other site assets"
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Add a site",
+      "steps": [
+        "Enter the deployed site name and base URL",
+        "Save the site",
+        "Optionally upload a brand image"
+      ]
+    },
+    {
+      "name": "Run an audit",
+      "steps": [
+        "Start a scan from the site detail page",
+        "Crawl public routes",
+        "Generate a score, page checks, and findings"
+      ]
+    },
+    {
+      "name": "Review issues",
+      "steps": [
+        "Open an audit run",
+        "Inspect missing metadata, canonical, robots, sitemap, and schema checks",
+        "Read fix recommendations for each page"
+      ]
+    },
+    {
+      "name": "Track progress",
+      "steps": [
+        "Mark findings resolved after deploying fixes",
+        "Rerun the audit",
+        "Compare the new score and issue list with the prior run"
+      ]
+    }
+  ],
+  "primaryWorkflow": "Add a deployed site and run its first audit to see the full SEO report.",
+  "acceptanceChecks": [
+    "User can create a Site with a deployed base URL and see it listed in the dashboard.",
+    "User can start an AuditRun and receive a score plus page-level checks and findings.",
+    "Audit detail pages surface distinct checks for title, meta description, Open Graph, Twitter card, canonical URL, robots, sitemap coverage, and JSON-LD.",
+    "User can upload a BrandAsset and attach it to a Site.",
+    "Running a new audit creates a separate history entry without overwriting prior results."
+  ],
+  "design": {
+    "aesthetic": "brutally-minimal",
+    "fontPairing": "geist",
+    "brandColor": "",
+    "moodWords": [
+      "crisp",
+      "precise",
+      "spare",
+      "actionable"
+    ],
+    "motion": "balanced"
+  },
+  "envVars": []
+}
