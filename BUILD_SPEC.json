@@ -1,0 +1,60 @@
+{
+  "name": "Lumen",
+  "slug": "lumen",
+  "tagline": "A portfolio that turns first impressions into an experiment.",
+  "positioning": "Lumen is a polished portfolio site for a solo creator or small studio, built to showcase work clearly, build trust fast, and capture inquiries without clutter. Its landing page uses a server-side, cookie-sticky A/B split so each visitor consistently sees one of two hero messages while the rest of the site stays untouched. An authenticated back office lets the owner manage projects, testimonials, and hero copy without editing code.",
+  "archetype": "web-app",
+  "kind": "frontend",
+  "features": {
+    "auth": false,
+    "payments": false
+  },
+  "entities": [],
+  "routes": [
+    {
+      "path": "/",
+      "kind": "page",
+      "auth": false,
+      "purpose": "Public landing page with a server-rendered hero variant chosen from a sticky cookie bucket."
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Visitor lands on /, receives or reuses an ab_hero cookie, and sees the matching hero variant A or B.",
+      "steps": []
+    },
+    {
+      "name": "Visitor clicks the hero CTA and continues to the same offer flow regardless of variant.",
+      "steps": []
+    },
+    {
+      "name": "Owner signs in, updates hero copy or project content in /app, and publishes changes without affecting cookie assignment logic.",
+      "steps": []
+    },
+    {
+      "name": "Visitor submits a contact form and the message appears in the owner inbox.",
+      "steps": []
+    }
+  ],
+  "primaryWorkflow": "",
+  "acceptanceChecks": [
+    "A first-time visitor to / receives an ab_hero cookie with value a or b.",
+    "Refreshing the page preserves the same hero variant for that visitor.",
+    "Deleting the cookie causes a fresh 50/50 reassignment on the next visit.",
+    "Variant B uses different headline, subheadline, and CTA wording while keeping the same layout, colors, and components.",
+    "Nothing below the hero changes between variant A and variant B."
+  ],
+  "design": {
+    "aesthetic": "editorial-serif",
+    "fontPairing": "instrument-serif",
+    "brandColor": "",
+    "moodWords": [
+      "refined",
+      "airy",
+      "confident",
+      "curated"
+    ],
+    "motion": "balanced"
+  },
+  "envVars": []
+}
