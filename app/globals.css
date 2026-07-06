@@ -1,0 +1,151 @@
+/* Registry animations - bundled keyframes used by components in
+   components/registry/* (MagicUI, etc.). The pruner deletes unused
+   component .tsx files but leaves this CSS in place; the rules are tiny
+   and tree-unrelated. Regenerate with `bun run scripts/registry/fetch-magicui.ts`. */
+@import "../components/registry/_meta/registry-animations.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Typographic polish applied to every generated app: balanced multi-line
+     headings (no lonely last word) + orphan-free body text. `text-wrap` is
+     progressive — it simply no-ops on browsers that don't support it. */
+  h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
+  p, li, blockquote, figcaption, dd { text-wrap: pretty; }
+}
+
+/* Per-element scroll-reveal (AOS). ONLY active when the layout's pre-paint script
+   adds `reveal-on` to <html> (JS present AND reduced-motion off) — FAIL-VISIBLE:
+   no-JS, reduced-motion, or a stuck observer all render content fully visible. A
+   codemod tags individual content elements (headings, text, images, cards) with
+   `data-reveal` in the markup, so they hide BEFORE first paint (no flash); the
+   ScrollReveal driver staggers + reveals each as it enters view. Subtle + fast. */
+html.reveal-on [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  will-change: opacity, transform;
+}
+html.reveal-on [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.62s cubic-bezier(0.16, 1, 0.3, 1), transform 0.62s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  html.reveal-on [data-reveal] { opacity: 1; transform: none; }
+}
+
+/*
+  Canonical design tokens - shadcn-style paired colours in HSL tuple form
+  (space-separated, no `hsl()` wrapper). Every `bg-*` has an obvious
+  `text-*-foreground` counterpart; never set a background without also
+  setting the matching foreground.
+
+  To change the palette, override these variables in your own `:root` or
+  a scoped block (e.g. `[data-theme="warm"]`). Keep the names - the
+  Tailwind class mappings in `tailwind.config.ts` read these directly.
+
+  HSL tuples (not hex) because the config wraps them with
+  `hsl(var(--x) / <alpha-value>)`, which is what makes `bg-primary/80`
+  actually emit CSS in Tailwind v3 JIT.
+*/
+:root {
+  --background: 45 33% 98%;
+  --foreground: 30 13% 9%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 30 13% 9%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 30 13% 9%;
+
+  --primary: 30 13% 9%;
+  --primary-foreground: 0 0% 98%;
+
+  --secondary: 0 0% 100%;
+  --secondary-foreground: 30 13% 9%;
+
+  --muted: 0 0% 100%;
+  --muted-foreground: 32 8% 39%;
+
+  --accent: 18 62% 44%;
+  --accent-foreground: 0 0% 98%;
+
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 40 24% 88%;
+  --input: 40 24% 88%;
+  --ring: 30 13% 9%;
+
+  --radius: 0.5rem;
+
+  /*
+    Easing tokens. Landing/frontend agents reference these inside arbitrary
+    Tailwind animation values (e.g. `animate-[rise_700ms_var(--ease-ui)_80ms_forwards]`).
+    Defining them here once means agents don't need to invent their own —
+    and prevents the agent from accidentally redefining `--ease-ui` as a
+    color tuple (which kills the animation and leaves elements stuck at
+    `opacity-0`). Override in a scoped block if a specific surface needs
+    a different curve.
+  */
+  --ease-ui: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  color-scheme: dark;
+}
+
+/*
+  Canonical entrance keyframes. Agents commonly write classes like
+  `opacity-0 animate-[rise_700ms_var(--ease-ui)_forwards]` expecting these
+  names to exist. If the keyframe is missing the animation never fires and
+  `opacity-0` leaves the content invisible (see hero h1 from run
+  1777172065663-255da6, 2026-04-26). Keep the set small but cover the names
+  agents reach for: rise, fade-in, fade-up, slide-up, scale-in.
+*/
+@keyframes rise {
+  0%   { opacity: 0; transform: translate3d(0, 18px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fade-up {
+  0%   { opacity: 0; transform: translate3d(0, 12px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes slide-up {
+  0%   { opacity: 0; transform: translate3d(0, 24px, 0); }
+  100% { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes scale-in {
+  0%   { opacity: 0; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+html,
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+}
+
+body {
+  /*
+    Body uses the active pairing's body family. lib/fonts.ts wires
+    --font-body indirectly: each pairing exposes a unique CSS variable
+    (e.g. --font-inter, --font-manrope) and Tailwind's font-body utility
+    resolves to whichever variable belongs to the active pairing's body
+    role. Display copy reaches for `font-display`, code/numerals for
+    `font-mono`. NEVER hard-code a Google Font import here — agents that
+    do trip the "Cannot find name 'Clash_Display'" build error and end
+    up on system fonts.
+  */
+  font-family: var(--font-body, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  font-feature-settings: "ss01", "cv01";
+  -webkit-font-smoothing: antialiased;
+}
