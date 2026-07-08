@@ -1,0 +1,184 @@
+{
+  "name": "Taskline",
+  "slug": "taskline",
+  "tagline": "Capture work fast, stay organized, finish cleanly.",
+  "positioning": "Taskline is a clean, fast todo app for busy individuals and small teams who want to capture tasks instantly, organize them into simple lists, and move work to done without clutter. It combines natural-language task entry, drag-and-drop prioritization, recurring tasks, reminders, search and filters, and lightweight shared-list collaboration so users can stay focused on execution instead of administration.",
+  "archetype": "web-app",
+  "kind": "fullstack",
+  "features": {
+    "auth": true,
+    "payments": false
+  },
+  "entities": [
+    {
+      "name": "Item",
+      "description": "A generic record",
+      "ownedByUser": true,
+      "fields": [
+        {
+          "name": "title",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "description": ""
+        },
+        {
+          "name": "done",
+          "type": "boolean",
+          "required": false,
+          "unique": false,
+          "description": ""
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "kind": "page",
+      "auth": false,
+      "purpose": "Public landing page with product value proposition and call to action"
+    },
+    {
+      "path": "/login",
+      "kind": "page",
+      "auth": false,
+      "purpose": "Email/password sign in"
+    },
+    {
+      "path": "/signup",
+      "kind": "page",
+      "auth": false,
+      "purpose": "Email/password account creation"
+    },
+    {
+      "path": "/app",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Authenticated shell with dashboard summary and navigation"
+    },
+    {
+      "path": "/app/inbox",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Quick capture inbox and uncategorized tasks"
+    },
+    {
+      "path": "/app/lists",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Lists/projects overview"
+    },
+    {
+      "path": "/app/lists/[listId]",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Single list/project board with task ordering"
+    },
+    {
+      "path": "/app/tasks/[taskId]",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Task detail panel with notes, comments, reminders, and recurrence"
+    },
+    {
+      "path": "/app/search",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Search and filter view across tasks"
+    },
+    {
+      "path": "/app/reminders",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Reminder management and upcoming due work"
+    },
+    {
+      "path": "/app/settings",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Account, notification, and collaboration settings"
+    },
+    {
+      "path": "/api/tasks",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Create, update, reorder, complete, and delete tasks"
+    },
+    {
+      "path": "/api/lists",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Create and manage task lists/projects"
+    },
+    {
+      "path": "/api/comments",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Create and delete task comments"
+    },
+    {
+      "path": "/api/reminders",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Create and manage reminders"
+    },
+    {
+      "path": "/api/shares",
+      "kind": "page",
+      "auth": true,
+      "purpose": "Invite collaborators and accept shared-list access"
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Quick-add a task in the inbox using natural language like 'Send proposal tomorrow 3pm p1' and have it parsed into title, due date, and priority.",
+      "steps": []
+    },
+    {
+      "name": "Move a task from Inbox into a list/project and reorder it with drag-and-drop.",
+      "steps": []
+    },
+    {
+      "name": "Open a task detail panel to edit notes, add labels, set recurrence, and schedule reminders.",
+      "steps": []
+    },
+    {
+      "name": "Share a list with a teammate by email invite and collaborate through comments on tasks in that list.",
+      "steps": []
+    },
+    {
+      "name": "Search and filter tasks by due date, label, status, priority, and list.",
+      "steps": []
+    }
+  ],
+  "primaryWorkflow": "Quick-add a task in the inbox with a natural-language due date, then organize it into a list/project and see it persist in the ordered task view.",
+  "acceptanceChecks": [
+    "A signed-in user can create a task from the Inbox using a natural-language due date and see the parsed task appear in the list immediately.",
+    "Dragging a task to a different list updates its list assignment and order without a full page reload.",
+    "Opening a task detail panel lets the user edit notes, priority, labels, recurrence, and reminders, and those changes persist after refresh.",
+    "A user can add a comment to a task and the comment appears in the task thread for subsequent visits.",
+    "A list can be shared by email invite, and an invited collaborator can access the shared list after accepting the invite.",
+    "Search and filters return only tasks that match the selected due date, label, status, or priority criteria."
+  ],
+  "design": {
+    "aesthetic": "brutally-minimal",
+    "fontPairing": "inter-tight",
+    "brandColor": "",
+    "moodWords": [
+      "crisp",
+      "focused",
+      "efficient",
+      "modern"
+    ],
+    "motion": "balanced"
+  },
+  "envVars": []
+}
