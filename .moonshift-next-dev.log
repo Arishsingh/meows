@@ -1,0 +1,30 @@
+  ▲ Next.js 14.2.35
+  - Local:        http://127.0.0.1:3161
+  - Network:      http://127.0.0.1:3161
+
+ ✓ Starting...
+ ✓ Ready in 10.2s
+ ○ Compiling /app ...
+ ✓ Compiled /app in 7.9s (1607 modules)
+ ○ Compiling / ...
+ GET /app 307 in 3932ms
+ ✓ Compiled /sign-in in 15.1s (1585 modules)
+ GET /app 307 in 1520ms
+ GET / 200 in 1454ms
+ GET /sign-in?next=%2Fapp 200 in 16ms
+ GET /sign-in 200 in 79ms
+ ○ Compiling /sign-up ...
+ ✓ Compiled /sign-up in 1127ms (1591 modules)
+ GET /sign-up 200 in 1548ms
+ GET / 200 in 230ms
+ ⚠ Found a change in next.config.mjs. Restarting the server to apply the changes...
+  ▲ Next.js 14.2.35
+  - Local:        http://127.0.0.1:3161
+  - Network:      http://127.0.0.1:3161
+
+ ✓ Starting...
+ ✓ Ready in 7.1s
+ ○ Compiling /middleware ...
+ ✓ Compiled /middleware in 651ms (115 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 6.9s (684 modules)
